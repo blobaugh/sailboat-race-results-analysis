@@ -1,0 +1,23 @@
+SELECT r.name, r.elapsed, r.corrected, r.phrf
+FROM results as r
+LEFT JOIN classes as c ON c.id = r.class_id
+WHERE
+	c.course='NRN' 
+	AND r.phrf > 120
+	AND c.name='1 NFS'
+ORDER BY elapsed ASC;
+
+
+SELECT 
+	c.course,
+	COUNT( r.elapsed ) as count,
+	SEC_TO_TIME(AVG(TIME_TO_SEC( r.elapsed ))) as average, 
+	SEC_TO_TIME(MAX(TIME_TO_SEC( r.elapsed ))) as max,
+	SEC_TO_TIME(MIN(TIME_TO_SEC( r.elapsed ))) as min 
+FROM results as r
+LEFT JOIN classes as c ON c.id = r.class_id
+WHERE
+	c.course='NRN' 
+--	AND c.name='1 NFS'
+-- GROUP BY c.course
+ORDER BY elapsed ASC;
